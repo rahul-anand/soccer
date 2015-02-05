@@ -36,6 +36,7 @@ for i=1:x2
    im=imread(img_name);
    %image(im);
               ff = sprintf('frames/%d.jpg',i)
+im=imresize(im,2,'bilinear');
 
     showboxes(im, bb,ff);  
     close all;
