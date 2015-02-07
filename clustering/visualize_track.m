@@ -8,7 +8,7 @@ imgpath='../sc/10/';
 
 
 tic
-outputVideo = VideoWriter('shuttle_out.avi');
+outputVideo = VideoWriter('out.avi');
 outputVideo.FrameRate = 30;
 open(outputVideo);
 ;
@@ -36,7 +36,7 @@ for i=1:x2
    im=imread(img_name);
    %image(im);
               ff = sprintf('frames/%d.jpg',i)
-
+im=imresize(im,2,'bilinear');
     showboxes(im, bb,ff);  
     close all;
      writeVideo(outputVideo,im)

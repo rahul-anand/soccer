@@ -6,10 +6,11 @@ tic
 
 [x,y,val]=klt_read_featuretable('features.txt');
 
-[nfeatures nframes]=size(x);
-nframes=40
+[nfeatures nframes]=size(x)
+nframes=1100
 %Store KLT Features belonging to each bounding box
 disp('Storing KLT Features for each Bounding Box');
+tic
 for i=1:nframes
       
        dpmfname = sprintf('../person_detection/voc-release5/10/%d.mat',i);
@@ -32,7 +33,8 @@ for i=1:nframes
        
 end
 
-
+toc
+tic
 %Compare  all possible bounding boxes in consecutive frames 
 % Store as pair if more than 50% of KLT Features match
 disp('Computing Pairwise Bounding Boxes with more than 50% Match');
@@ -63,9 +65,9 @@ for i=1:nframes-1
 end
 
 
-
+toc
 %Compute Person track given pair(computed above)
-
+tic
 disp('Computing Person Tracks');
 
 
@@ -112,7 +114,8 @@ for i=1:nframes-1
 end
 
 
-
+toc
+tic
 %Storing Efficinetly 
 
 newcount=0;
@@ -136,6 +139,8 @@ for i=1:count-1
            
 end
 
+toc
+tic
 disp('Removing Sub/Duplicate Tracks');
 
 %Removing Sub Tracks of a Track
@@ -217,7 +222,7 @@ cnt=1;
     end
     
     
-
+save person_t.mat person_tracks
 toc
 
 
