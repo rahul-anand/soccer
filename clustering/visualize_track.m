@@ -37,6 +37,10 @@ for i=1:x2
    %image(im);
               ff = sprintf('frames/%d.jpg',i)
 im=imresize(im,2,'bilinear');
+<<<<<<< HEAD
+=======
+
+>>>>>>> 722ef37fd5956c3ca78e24fd408fced7a1ef3349
     showboxes(im, bb,ff);  
     close all;
      writeVideo(outputVideo,im)
