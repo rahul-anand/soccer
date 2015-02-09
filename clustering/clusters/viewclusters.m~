@@ -1,0 +1,87 @@
+clc
+close all
+clear all
+motion=[1 1 1 1 1 0 0 1 0 0 0]
+color=[0 1 1 1 0 1 1 0 1 0 0]
+height=[0 0 1 1 1 0 1 0 0 1 0]
+tracks=[0 0 0 1 0 1 0 1 0 0 1]
+
+[x1 x2]=size(motion)
+
+load feature_colorhist.mat
+load feature_ntracks.mat
+load feature_motion.mat
+load feature_height.mat
+f1=feature_motion;
+f4=ntracks;
+f2=feature_hist;
+f3=feature_height;
+ncluster=7;
+feature_mat=[]
+for i=1:x2
+   mi=motion(i);
+   ci=color(i);
+   hi=height(i);
+   ti=tracks(i)
+   fea=[];
+   if(mi==1)
+       fea=[fea f1(:,3:end)];
+   end
+   if(ci==1)
+       fea=[fea f2(:,3:end)];
+    end
+   if(hi==1)
+       fea=[fea f3(:,3:end)];
+    end
+   
+   if(ti==1)
+       fea=[fea f4(:,3:end)];
+   end
+   size(fea)
+ clusterfname = sprintf('clusters/cluster_motion=%d_color=%d_height=%d_tracks=%d.mat',mi,ci,hi,ti)   
+load(clusterfname);
+
+
+mkdir(clusterfname);
+
+
+
+
+
+
+
+
+[lo po]=size(unique(idx))
+offset=30600;
+path='../../sc/10/';
+for i=1:lo
+    i
+   p=find(idx==i);
+   [l1 l2]=size(p);
+   
+   mkdir(num2str(i));
+   for j=1:l1
+       
+       id=p(j);
+       s1=index(id,1);
+       s2=index(id,2);
+       s1,s2,i;
+       vidname=sprintf('%s/%d/%d_%d.avi',clusterfname,i,s1,s2);
+       outputVideo = VideoWriter(vidname);
+outputVideo.FrameRate = 30;
+open(outputVideo);
+
+       for k=s1:s2
+           img_name = sprintf('%s%d.jpg',path,offset+k);
+           im=imread(img_name);
+          %  figure,imshow(im);
+           writeVideo(outputVideo,im);
+
+       end
+        close(outputVideo);
+
+       
+   end
+    
+end
+end
