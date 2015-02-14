@@ -1,0 +1,8 @@
+clear all
+clc
+close all
+load 1.mat
+bb1=bbox;
+load 2.mat
+bb2=bbox;
+[x,y,val]=klt_read_featuretable('features.txt');
